@@ -66,12 +66,20 @@ where (a.pollutant = b.pollutant) and (a.value = b.max_value);
 
 
 #------
-#Find the cities with the highest and lowest level of each pollutant in India, Australia, Germany and US.
+#Find the cities with the highest and lowest level of each pollutant in India, Australia, Germany and US in February 2019.
 #------
-with pollutant_max as
+with Feb2019 as
+(
+  select country, pollutant, city, value
+  from `bigquery-public-data.openaq.global_air_quality`
+  where
+    (extract(year from timestamp) = 2019) and
+    (extract(month from timestamp) = 2)
+),
+pollutant_max as
 (
   select a.country, a.pollutant, max(a.value) as extremum, 'max' as label
-  from `bigquery-public-data.openaq.global_air_quality` as a
+  from Feb2019 as a
   group by a.country, a.pollutant
   having a.country  in  ('IN', 'AU', 'DE', 'US')
   order by a.country, a.pollutant
@@ -79,7 +87,7 @@ with pollutant_max as
 pollutant_min as 
 (
   select a.country, a.pollutant, min(a.value) as extremum, 'min' as label
-  from `bigquery-public-data.openaq.global_air_quality` as a
+  from Feb2019 as a
   group by a.country, a.pollutant
   having a.country  in  ('IN', 'AU', 'DE', 'US')
   order by a.country, a.pollutant
@@ -92,7 +100,7 @@ select * from pollutant_min
 )
 select a.country, a.pollutant, a.city, a.value, b.label as extremum_label
 from 
-  `bigquery-public-data.openaq.global_air_quality` as a,
+  Feb2019 as a,
   unioned as b
 where
   (a.country = b.country and a.pollutant = b.pollutant and a.value  = b.extremum) 
