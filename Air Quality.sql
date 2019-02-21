@@ -45,17 +45,25 @@ group by pollutant
 order by city_count desc limit 1)
 
 #------
-#For each air pollutant, which are the cities that have the highest level of that pollutant?
+#For each air pollutant, which are the cities that have the highest level of that pollutant in February 2019?
 #------
-with pollutant_max as
+with Feb2019data as(
+  select pollutant, city, country, value, source_name
+  from `bigquery-public-data.openaq.global_air_quality`
+  where 
+  (extract(year from timestamp) = 2019) and
+  (extract(month  from timestamp) = 2)
+),
+pollutant_max as
 (
   select pollutant, max(value) as max_value
-  from `bigquery-public-data.openaq.global_air_quality`
+  from Feb2019data
   group by pollutant
 )
 select a.pollutant, a.city, a.country, a.value, a.source_name
-from `bigquery-public-data.openaq.global_air_quality` as a, pollutant_max as b
+from Feb2019data as a, pollutant_max as b
 where (a.pollutant = b.pollutant) and (a.value = b.max_value);
+
 
 #------
 #Find the cities with the highest and lowest level of each pollutant in India, Australia, Germany and US.
