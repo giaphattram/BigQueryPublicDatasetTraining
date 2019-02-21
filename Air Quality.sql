@@ -109,3 +109,4 @@ from
 where
   (a.country = b.country and a.pollutant = b.pollutant and a.value  = b.extremum) 
 order by a.country, a.pollutant;
+ 
