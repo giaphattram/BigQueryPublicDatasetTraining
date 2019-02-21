@@ -5,7 +5,7 @@
 #In which years is the data availalbe?
 #------
 select distinct extract(year from timestamp) as timestamp_year
-from `bigquery-public-data.openaq.global_air_quality`notepad
+from `bigquery-public-data.openaq.global_air_quality`
 order by timestamp_year;
 
 #------
