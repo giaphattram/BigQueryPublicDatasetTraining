@@ -69,6 +69,8 @@ where (a.pollutant = b.pollutant) and (a.value = b.max_value);
 
 #------
 #Find the cities with the highest and lowest level of each pollutant in India, Australia, Germany and US in February 2019.
+#From this, I find out that Baden-Württemberg, the state where I study my Master's degree, has the highest level of CO, O3; while Nordrhein-Westfalen, the state where I am living and doing my internship, has the lowest level of O3.          
+#The reason is perhaps because BASF, the chemical company, is headquartered in Ludwigshafen in Baden-Württemberg.
 #------
 with Feb2019 as
 (
