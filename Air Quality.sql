@@ -23,9 +23,9 @@ from `bigquery-public-data.openaq.global_air_quality`;
 #------
 #Which air pollutants are most and least prevalent in February 2019?
 #------
-(select pollutant, count(pollutant) as city_count
+(select pollutant, count(distinct concat(city,"-",country)) as city_count
 from  
-  (select pollutant, timestamp from `bigquery-public-data.openaq.global_air_quality` 
+  (select pollutant, city, country, timestamp from `bigquery-public-data.openaq.global_air_quality` 
    where 
      (extract(year from timestamp)=2019) and 
      (extract(month from timestamp)=2)
@@ -35,9 +35,9 @@ order by city_count asc limit 1)
 
 union distinct 
 
-(select pollutant, count(pollutant) as city_count
+(select pollutant, count(distinct concat(city,"-",country)) as city_count
 from  
-  (select pollutant, timestamp from `bigquery-public-data.openaq.global_air_quality` 
+  (select pollutant, city, country, timestamp from `bigquery-public-data.openaq.global_air_quality` 
    where 
      (extract(year from timestamp)=2019) and 
      (extract(month from timestamp)=2)
