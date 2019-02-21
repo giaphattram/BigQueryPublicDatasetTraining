@@ -18,6 +18,7 @@ from `bigquery-public-data.openaq.global_air_quality`;
 
 #------
 #Which air pollutants are most and least prevalent?
+
 (select pollutant, count(pollutant) as city_count
 from  `bigquery-public-data.openaq.global_air_quality` as a
 group by pollutant 
@@ -31,9 +32,7 @@ group by pollutant
 order by city_count desc limit 1)
 
 #------
-#For each air pollutant, which are the cities that have the highest level of that 
-
-pollutant?
+#For each air pollutant, which are the cities that have the highest level of that pollutant?
 
 with pollutant_max as
 (
@@ -46,9 +45,7 @@ from `bigquery-public-data.openaq.global_air_quality` as a, pollutant_max as b
 where (a.pollutant = b.pollutant) and (a.value = b.max_value);
 
 #------
-#Find the cities with the highest and lowest level of each pollutant in India, 
-
-Australia, Germany and US.
+#Find the cities with the highest and lowest level of each pollutant in India, Australia, Germany and US.
 
 with pollutant_max as
 (
