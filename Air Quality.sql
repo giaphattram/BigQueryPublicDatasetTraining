@@ -1,4 +1,5 @@
 #Exploring Big Query Public Dataset Global Air Quality
+#Dataset URL: https://console.cloud.google.com/marketplace/details/openaq/real-time-air-quality?filter=solution-type:dataset&filter=category:science-research
 
 #------
 #In which years is the data availalbe?
