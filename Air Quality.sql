@@ -100,9 +100,9 @@ pollutant_min as
 ),
 unioned as
 (
-select * from pollutant_max
-union all
-select * from pollutant_min
+  select * from pollutant_max
+  union all
+  select * from pollutant_min
 )
 select a.country, a.pollutant, a.city, a.value, b.label as extremum_label
 from 
