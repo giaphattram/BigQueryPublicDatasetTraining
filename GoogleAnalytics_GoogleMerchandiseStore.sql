@@ -1,7 +1,8 @@
 #Exploring the public dataset from google analytics for google merchandise store
 #Dataset Url: https://www.blog.google/products/marketingplatform/analytics/introducing-google-analytics-sample/
-#This self-training is partly motivated by the questions in the Big Query cookbook: https://support.google.com/analytics/answer/4419694?hl=en&ref_topic=3416089
 #Google Analytics' BigQuery Export Schema: https://support.google.com/analytics/answer/3437719?hl=en
+
+#This self-training is partly motivated by the questions in the Big Query cookbook: https://support.google.com/analytics/answer/4419694?hl=en&ref_topic=3416089
 #Disclaimer 1: My queries can differ fundamentally from those in the cookbook for questions that I find queries in the cookbook do not actually give the answers for.
 #Disclaimer 2: My understanding of hits.product.productQuantity can be incorrect.
 
