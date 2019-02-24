@@ -2,8 +2,8 @@
 #Dataset Url: https://www.blog.google/products/marketingplatform/analytics/introducing-google-analytics-sample/
 #Google Analytics' BigQuery Export Schema: https://support.google.com/analytics/answer/3437719?hl=en
 
-#This self-training is partly motivated by the questions in the Big Query cookbook: https://support.google.com/analytics/answer/4419694?hl=en&ref_topic=3416089
-#Disclaimer 1: My queries can differ fundamentally from those in the cookbook for questions that I find queries in the cookbook do not actually give the answers for.
+#This self-training partly follows the Big Query cookbook: https://support.google.com/analytics/answer/4419694?hl=en&ref_topic=3416089
+#Disclaimer 1: Some queries can differ fundamentally from those in the cookbook for the same questions.
 #Disclaimer 2: My understanding of hits.product.productQuantity can be incorrect.
 
 #----------
@@ -37,24 +37,24 @@ ORDER BY
 total_transactions DESC
 
 #----------
-#Average bounce rate per traffic source in July 2017?
+#Average bounce rate per channel in July 2017?
+#Note: some other dimensions: trafficSource.source, device.browser
 #----------
-#standardSQL
 SELECT
-source,
+channel,
 total_visits,
-total_no_of_bounces,
-( ( total_no_of_bounces / total_visits ) * 100 ) AS bounce_rate
+total_bounces,
+( ( total_bounces / total_visits ) * 100 ) AS bounce_rate
 FROM (
 SELECT
-trafficSource.source AS source,
-COUNT ( trafficSource.source ) AS total_visits,
-SUM ( totals.bounces ) AS total_no_of_bounces
+channelGrouping as channel,
+COUNT (*) AS total_visits,
+SUM ( totals.bounces ) AS total_bounces
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*`
 WHERE
 _TABLE_SUFFIX BETWEEN '20170701' AND '20170731'
 GROUP BY
-source )
+channel )
 ORDER BY
 total_visits DESC
 
