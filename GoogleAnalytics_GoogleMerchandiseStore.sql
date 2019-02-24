@@ -2,7 +2,8 @@
 #Dataset Url: https://www.blog.google/products/marketingplatform/analytics/introducing-google-analytics-sample/
 #This self-training is partly motivated by the questions in the Big Query cookbook: https://support.google.com/analytics/answer/4419694?hl=en&ref_topic=3416089
 #Google Analytics' BigQuery Export Schema: https://support.google.com/analytics/answer/3437719?hl=en
-
+#Disclaimer 1: My queries can differ fundamentally from those in the cookbook for questions that I find queries in the cookbook do not actually give the answers for.
+#Disclaimer 2: My understanding of hits.product.productQuantity can be incorrect.
 
 #----------
 #The number of sessions for each channel on 2017-08-01
@@ -120,14 +121,13 @@ FROM `bigquery-public-data.google_analytics_sample.ga_sessions_20170731`,
 	unnest (hits) as hits,
 	unnest (hits.product) as product
 WHERE 
-	product.productSKU is not null
+	product.productQuantity is not null
 	AND 
 	hits.eCommerceAction.action_type = '6'
 
 #-------
 #View products that are also bought by purchasers on 20170731 who
 #bought products with "Men" in the product names during the previous 90 days (exclusive of 20170731)
-#Question: sum(product.productQuantity), does it give the correct quantity?
 #-------
 with visitorList as 
 (
