@@ -161,9 +161,10 @@ where
   a.fullVisitorId in (select id from visitorList)
   and
   (hits.eCommerceAction.action_type = '6')
+  and
+  (product.productQuantity is not null)
 group by repeating_visitor, products
 order by repeating_visitor, quantity
-
 
 #-------
 #The list of unique purchasing fullVisitorId(s) and the total revenue from them 
